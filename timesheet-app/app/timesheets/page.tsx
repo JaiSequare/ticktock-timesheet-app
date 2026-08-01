@@ -4,9 +4,11 @@ import Footer from "../components/Footer";
 import TimesheetTable from "../components/TimesheetTable";
 import { Timesheet } from "../types";
 
+const BASE_URL = process.env.NEXT_PUBLIC_APP_URL!;
+
 const getTimesheets = async (): Promise<Timesheet[]> => {
   try {
-    const res = await fetch("http://localhost:3000/api/timesheets", {
+    const res = await fetch(`${BASE_URL}/api/timesheets`, {
       cache: "no-store",
     });
     if (!res.ok) throw new Error("Failed to fetch timesheets");
