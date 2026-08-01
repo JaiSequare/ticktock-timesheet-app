@@ -1,10 +1,14 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { mockTimesheetDetails } from "@/app/lib/mockData";
 
 export async function GET(
-  request: Request,
-  { params }: { params: { id: string } }
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
 ) {
-  const detail = mockTimesheetDetails[params.id] || mockTimesheetDetails["ts-1"];
-  return NextResponse.json(detail, { status: 200 });
-};
+  const { id } = await params;
+
+  const detail =
+    mockTimesheetDetails[id] ?? mockTimesheetDetails["ts-1"];
+
+  return NextResponse.json(detail);
+}
